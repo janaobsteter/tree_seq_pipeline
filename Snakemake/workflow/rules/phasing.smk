@@ -14,8 +14,8 @@
 if config['ploidy'] == 1:
     rule rename_phased:
         input:
-            vcf = f'{vcfdir}/{{chromosome}}_final.vcf.gz',
-            idx = f'{vcfdir}/{{chromosome}}_final.vcf.gz.csi'
+            vcf = f'{vcfdir}/{{chromosome}}_final_snps.vcf.gz',
+            idx = f'{vcfdir}/{{chromosome}}_final_snps.vcf.gz.csi'
         output:
             vcf = f'{vcfdir}/{{chromosome}}_phased.vcf.gz',
             idx = f'{vcfdir}/{{chromosome}}_phased.vcf.gz.csi'
@@ -35,7 +35,8 @@ if config['ploidy'] == 1:
 else:
     rule phase:
         input:
-            vcf = f'{vcfdir}/{{chromosome}}_final.vcf.gz',
+            vcf = f'{vcfdir}/{{chromosome}}_final_snps.vcf.gz',
+            idx = f'{vcfdir}/{{chromosome}}_final_snps.vcf.gz.csi',
         output:
             file = f'{vcfdir}/{{chromosome}}_phased.vcf.gz',
             idx = f'{vcfdir}/{{chromosome}}_phased.vcf.gz.csi'
