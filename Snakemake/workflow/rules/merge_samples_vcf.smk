@@ -99,7 +99,7 @@ else:
             """
             if [ -h {input} ]; then
                 ln -s $( realpath {input} ) {output.vcf}
-                ln -s $( realpath {input} ).csi {output.vcf}
+                ln -s $( realpath {input} ).csi {output.idx}
             else
                 ln -s {input} {output.vcf}
                 ln -s {input}.csi {output.idx}
