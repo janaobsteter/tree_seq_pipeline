@@ -83,10 +83,10 @@ def add_sites(vcf, samples, ploidy):
              alleles = alleles + [letter for letter in string]
              #ALT = ALT + [letter for letter in string]
 
-        print(alleles)
+        #print(alleles)
         # ignores non-bialllelic sites
         if len(alleles) > 2:
-            print('Ignoring non-biallelic site')
+         #   print('Ignoring non-biallelic site')
             continue
 
         # if len([*ancestral]) > 1:
@@ -95,12 +95,12 @@ def add_sites(vcf, samples, ploidy):
         #     #continue
 
         ancestral = variant.INFO.get("AA", variant.REF)
-        print(f'alleles: {alleles} | ancestal: {[*ancestral]}')
+        #print(f'alleles: {alleles} | ancestal: {[*ancestral]}')
         
         try:
            ancestral_allele = alleles.index(ancestral[0])
         except:
-            print('Ancestral not in alleles list, assigning as missing')
+            #print('Ancestral not in alleles list, assigning as missing')
             ancestral_allele = tsinfer.MISSING_DATA
             continue
 

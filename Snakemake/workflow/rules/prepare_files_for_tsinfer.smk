@@ -6,7 +6,8 @@ else:
 
 rule get_af:
     input: f'{vcfdir}/{{chromosome}}_phased.vcf.gz'
-    output:
+    output:  
+        newfile = f'{vcfdir}/{{chromosome}}_phased_info.vcf.gz',
         info = temp(f'{vcfdir}/Info{{chromosome}}.INFO')
     params:
         prefix=f'{vcfdir}/Info{{chromosome}}'
@@ -16,8 +17,8 @@ rule get_af:
     log: 'logs/get_af_{chromosome}.log'
     shell:
         """
-        bcftools +fill-tags {input} -Oz -o {input} -- -t AN,AC,AF
-        vcftools --gzvcf {input} --out {params.prefix} --get-INFO AC --get-INFO AF
+        bcftools +fill-tags {input} -Oz -o {output.newfile} -- -t AN,AC,AF
+        vcftools --gzvcf {output.newfile} --out {params.prefix} --get-INFO AC --get-INFO AF
 
         LOGFILE={params.prefix}.log
         if test -f "$LOGFILE"; then

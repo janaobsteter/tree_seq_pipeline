@@ -23,7 +23,7 @@ if len(splitFiles) > 0:
             """
             if [ -h {input.vcf} ]; then
                 ln -s $( realpath {input.vcf} ) {output.vcf}
-                ln -s $( realpath {input.vcf} ).csi {output.vcf}
+                ln -s $( realpath {input.idx} ) {output.idx}
             else
                 ln -s {input.vcf} {output.vcf}
                 ln -s {input.idx} {output.idx}

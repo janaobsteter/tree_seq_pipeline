@@ -15,53 +15,30 @@ from tsparam import *
 
 args = sys.argv
 sampleFile = args[1]
-outputFile = args[2]
+outputAncestors = args[2]
 
 #######################################################################
 # Do the inference and write the outputs
 #######################################################################
 
+print(sampleFile)
+print(outputAncestors)
+print(outputTree)
 # Do the inference on the 10 SNPs
 sampleFile = tsinfer.load(sampleFile)
-"""
+print("Samples: " + str(len(list(sampleFile.samples()))))
+
 ancestors = tsinfer.generate_ancestors(
     sampleFile,
     num_threads=threads,
     progress_monitor=True,
+#    path = "Chr.ancestors",
 ).truncate_ancestors(
     lower_time_bound=lwertime,
-    upper_time_bound=uprtime,
-    length_multiplier=lenmultiply,
+    upper_time_bound=uprtime
 )
 print("Done generating ancestors")
 
-ancestors_ts = tsinfer.match_ancestors(
-    sampleFile,
-    ancestors,
-    num_threads=threads,
-    recombination_rate=recombrate,
-    mismatch_ratio=mismtachratio,
-    progress_monitor=True,
-)
-print("Done matching ancestors")
-
-ts = tsinfer.match_samples(
-    sampleFile,
-    ancestors_ts,
-    num_threads=threads,
-    recombination_rate=recombrate,
-    mismatch_ratio=mismtachratio,
-    progress_monitor=True,
-).simplify(keep_unary=False)
-print("Done matching samples")
-
-"""
-ts = tsinfer.infer(sampleFile, recombination_rate = recombrate, mismatch_ratio = mismatchratio, num_threads = threads)
-print(
-    "Inferred tree sequence `{}`: {} trees over {} Mb".format(
-        "ts", ts.num_trees, ts.sequence_length / 1e6
-    )
-)
 
 # # Check the metadata
 # for sample_node_id in ts.samples():
@@ -76,4 +53,3 @@ print(
 #         json.loads(ts.population(population_id).metadata)["subpop"],
 #     )
 
-ts.dump(outputFile)
