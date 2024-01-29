@@ -23,5 +23,5 @@ rule index_filtered_vcf:
     conda: "bcftools"
     shell:
         """
-        bcftools index {input}
+        bcftools index -f {input}
         """
